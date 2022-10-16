@@ -1,0 +1,45 @@
+---
+title: "Table"
+author: "Runze Jiang"
+date: "2022/10/7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tableone)
+library(survival)
+#find the data using
+head(pbc)
+#create basic table
+t1 <- CreateTableOne(data=pbc)
+print(t1)
+#create table with factor variables
+fvar <- c("trt","status","ascites","stage")
+uvar <- c("time","status","trt","age","sex","ascites","bili","edema","ast","stage")
+#create table with different groups
+t2 <- CreateTableOne(data = pbc,vars = uvar,factorVars = fvar)
+print(t2)
+#create table for specified variable"trt"
+t3 <- CreateTableOne(data = pbc,vars = uvar,factorVars = fvar,strata = "trt")
+print(t3)
+```
+
+1.Data source:
+I use the dataset from the survival package named "pbc".Primary sclerosing cholangitis is an autoimmune disease leading to destruction of the small bile ducts in the liver and this data is from the Mayo Clinic trial in PBC conducted between 1974 and 1984 including 424 PBC patients.
+
+2.Convey:
+I want to display the summary of key statistic value (such as mean,standard deviation,p-value for testing) for these variables in one table clearly.
+
+
+3.Function:
+For the first table, it is only the basic function "CreateTableOne" and there are some useless outputs and the second table will improve this.
+For the last table, I add the function "strata" and I put the key variable "trt"(treatment)into it and it gives out the test result clearly and easy for making analysis.
+
+
+
+4.Formatting:
+The first table is the basic one and I format with only putting the data into it. The second table separates the factor variables and the last table looks pretty the statistic test and gives out the p-value.
